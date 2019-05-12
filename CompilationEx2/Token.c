@@ -102,7 +102,7 @@ Token *back_token()
 		}
 		else
 		{
-			printf("no token to back take a first in text\n");
+			fprintf(outSyntactic, "Expected to back token Actual it first token returned");
 		}
 	}
 	else

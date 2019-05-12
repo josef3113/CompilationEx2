@@ -1917,12 +1917,25 @@ int main(int argc, char *argv[])
 {
 	yyin = fopen("C:\\temp\\test1.txt", "r");
 	yyout = fopen("C:\\temp\\test1_311763718_311303333_lex.txt", "w");
-
 	outSyntactic = fopen("C:\\temp\\test1_311763718_311303333_syntactic.txt", "w");
 
 	parse_PROGRAM();
 	match(TOKEN_EOF);
-	scanf("%d", &line);
+
+	fclose(yyin);
+	fclose(yyout);
+	fclose(outSyntactic);
+
+	yyin = fopen("C:\\temp\\test2.txt", "r");
+	yyrestart(yyin);
+	line = 1;
+
+	yyout = fopen("C:\\temp\\test2_311763718_311303333_lex.txt", "w");
+	outSyntactic = fopen("C:\\temp\\test2_311763718_311303333_syntactic.txt", "w");
+
+	parse_PROGRAM();
+	match(TOKEN_EOF);
+
 	fclose(yyin);
 	fclose(yyout);
 	fclose(outSyntactic);
