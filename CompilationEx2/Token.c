@@ -83,7 +83,7 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 	strcpy_s(currentNode->tokensArray[currentIndex].lexeme, length, lexeme);
 #else
 	strcpy(currentNode->tokensArray[currentIndex].lexeme, lexeme);
-#endif		
+#endif
 }
 
 // add fun  
@@ -150,8 +150,6 @@ Token *next_token()
 }
 
 
-
-
 int match(eTOKENS token)
 {
 	Token * curr_token = next_token();
@@ -164,4 +162,46 @@ int match(eTOKENS token)
 	}
 
 	return 1;
+}
+
+void free_storege()
+{
+	Node* temp = NULL;
+
+	// take the currentNode to end of list
+	while (currentNode->next != NULL)
+	{
+		currentNode = currentNode->next;
+	}
+
+	// remove and free all memory in list storege
+	while (currentNode->prev != NULL)
+	{
+		temp = currentNode;
+		for (int i = 0; i < TOKEN_ARRAY_SIZE ; i++)
+		{
+			if (temp->tokensArray[i].lexeme != NULL)
+			{
+				free(temp->tokensArray[i].lexeme);
+			}
+		}
+		free(temp->tokensArray);
+		currentNode = currentNode->prev;
+		free(temp);
+
+	}
+	for (int i = 0; i < TOKEN_ARRAY_SIZE; i++)
+	{
+		if (currentNode->tokensArray[i].lexeme != NULL)
+		{
+			free(currentNode->tokensArray[i].lexeme);
+		}
+	}
+
+	free(currentNode->tokensArray);
+	free(currentNode);
+
+	currentNode = NULL;
+	currentIndex = 0;
+
 }

@@ -56,6 +56,7 @@ static const char *ENUM_STRING[] =
 "TOKEN_REAL_NUMBER",
 "TOKEN_EOF"
 };
+
 typedef struct Token
 {
 	eTOKENS kind;
@@ -74,5 +75,6 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine);
 Token *next_token();
 Token *back_token();
 int match(eTOKENS token);
+void free_storege();
 
 #endif
