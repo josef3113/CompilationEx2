@@ -1941,6 +1941,7 @@ int main(int argc, char *argv[])
 	fclose(yyout);
 	fclose(outSyntactic);
 	free_storege();
-	
+
+	yylex_destroy();
 	_CrtDumpMemoryLeaks();
 }
