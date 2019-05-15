@@ -158,6 +158,8 @@ int match(eTOKENS token)
 	{
 		fprintf(outSyntactic, "Expected: token '%s' at line %d ", ENUM_STRING[token], curr_token->lineNumber);
 		fprintf(outSyntactic, "Actual token: '%s', lexeme “ %s ” \n", ENUM_STRING[curr_token->kind], curr_token->lexeme);
+		// Avoid reading a few times token EOF from the file 
+		back_token();
 		return 0;
 	}
 
