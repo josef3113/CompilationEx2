@@ -11,6 +11,7 @@ There are three functions providing an external access to the storage:
 */
 
 int currentIndex = 0;
+int out_of_bounds = 0;
 Node* currentNode = NULL;
 
 #define TOKEN_ARRAY_SIZE 100
@@ -102,7 +103,14 @@ Token *back_token()
 		}
 		else
 		{
-			fprintf(outSyntactic, "Expected to back token Actual it first token returned");
+			if (out_of_bounds)
+			{
+				fprintf(outSyntactic, "Back token was expected but first token returned");
+			}
+			else
+			{
+				out_of_bounds = 1;
+			}
 		}
 	}
 	else
@@ -135,7 +143,10 @@ Token *next_token()
 			}
 			else
 			{
-				yylex();
+				if (currentNode->tokensArray[currentIndex].kind != TOKEN_EOF)
+				{
+					yylex();
+				}
 			}
 
 		}
@@ -146,6 +157,7 @@ Token *next_token()
 		yylex();
 	}
 
+	out_of_bounds = 0;
 	return &currentNode->tokensArray[currentIndex];
 }
 
@@ -158,8 +170,6 @@ int match(eTOKENS token)
 	{
 		fprintf(outSyntactic, "Expected: token '%s' at line %d ", ENUM_STRING[token], curr_token->lineNumber);
 		fprintf(outSyntactic, "Actual token: '%s', lexeme “ %s ” \n", ENUM_STRING[curr_token->kind], curr_token->lexeme);
-		// Avoid reading a few times token EOF from the file 
-		back_token();
 		return 0;
 	}
 

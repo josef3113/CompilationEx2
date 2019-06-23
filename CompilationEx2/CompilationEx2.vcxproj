@@ -116,8 +116,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Parser.c" />
-    <ClCompile Include="Source.c" />
     <ClCompile Include="Token.c" />
+    <ClCompile Include="win.lex.yy.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="final grammer.docx" />
+    <None Include="lexical.lex" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="information.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
